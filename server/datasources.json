@@ -1,0 +1,6 @@
+{
+  "bakeryDatabase": {
+    "name": "bakeryDatabase",
+    "connector": "memory"
+  }
+}

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="Sales">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Sales</title>
+	<link rel="stylesheet" type="text/css" href="js/vendor/bower_components/bootstrap/dist/css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="js/vendor/bower_components/jqwidgets/styles/jqx.base.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body>
+	<div ng-include="'templates/header.html'"></div>
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12">
+				<div ng-view></div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Vendor Scripts -->
+	<script type="text/javascript" src="js/vendor/bower_components/angular/angular.js"></script>
+	<script type="text/javascript" src="js/vendor/bower_components/jquery/dist/jquery.js"></script>
+	<script type="text/javascript" src="js/vendor/bower_components/bootstrap/dist/js/bootstrap.js"></script>
+	<script type="text/javascript" src="js/vendor/bower_components/angular-route/angular-route.js"></script>
+	<script type="text/javascript" src="js/vendor/bower_components/jqwidgets/jqx-all.js"></script>
+	<!--<script type="text/javascript" src="js/vendor/bower_components/jqwidgets/jqxcore.js"></script>
+	<script type="text/javascript" src="js/vendor/bower_components/jqwidgets/jqxangular.js"></script>
+	<script type="text/javascript" src="js/vendor/bower_components/jqwidgets/jqxscrollbar.js"></script>
+	<script type="text/javascript" src="js/vendor/bower_components/jqwidgets/jqxbuttons.js"></script>
+	<script type="text/javascript" src="js/vendor/bower_components/jqwidgets/jqxgrid.js"></script>
+	<script type="text/javascript" src="js/vendor/bower_components/jqwidgets/jqxdata.js"></script>
+	<script type="text/javascript" src="js/vendor/bower_components/jqwidgets/jqxgrid.selection.js"></script>
+	<script type="text/javascript" src="js/vendor/bower_components/jqwidgets/jqxgrid.filter.js"></script>
+	<script type="text/javascript" src="js/vendor/bower_components/jqwidgets/jqxgrid.sort.js"></script>
+	<script type="text/javascript" src="js/vendor/bower_components/jqwidgets/jqxgrid.storage.js"></script>
+	<script type="text/javascript" src="js/vendor/bower_components/jqwidgets/jqxgrid.grouping.js"></script>
+	<script type="text/javascript" src="js/vendor/bower_components/jqwidgets/jqxgrid.pager.js"></script>
+	<script type="text/javascript" src="js/vendor/bower_components/jqwidgets/jqxgrid.columnsresize.js"></script>
+	<script type="text/javascript" src="js/vendor/bower_components/jqwidgets/jqxgrid.columnsreorder.js"></script>
+	<script type="text/javascript" src="js/vendor/bower_components/jqwidgets/jqxgrid.edit.js"></script>
+	<script type="text/javascript" src="js/vendor/bower_components/jqwidgets/jqxgrid.aggregates.js"></script>-->
+
+	<!-- Application Scripts -->
+	<script type="text/javascript" src="js/app.js"></script>
+
+	<script type="text/javascript" src="js/app/controllers/welcome-controller.js"></script>
+	<script type="text/javascript" src="js/app/controllers/inventory-controller.js"></script>
+	<script type="text/javascript" src="js/app/controllers/sales-controller.js"></script>
+	
+</body>
+</html>

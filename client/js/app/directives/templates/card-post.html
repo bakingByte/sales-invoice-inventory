@@ -1,0 +1,48 @@
+<md-card>
+  <md-card-header>
+    <md-card-avatar>
+      <img class = "md-user-avatar" src = "/img/harsh.gif"/>
+    </md-card-avatar>
+    <md-card-header-text>
+      <span class = "md-title">Test User</span>
+      <span class = "md-subhead"> A minute ago </span>
+    </md-card-header-text>
+  </md-card-header>
+  <md-card-content>
+    <p>
+      {{postObject.content}}
+    </p>
+  </md-card-content>
+  <!-- <img ng-src="{{imagePath}}" class="md-card-image" alt="Washed Out"> -->
+  <md-card-actions>
+    <md-card-icon-actions>
+      <md-button class = "md-icon-button" aria-label = "Like">
+        <!-- <md-icon md-svg-icon = "img/icons/thumb_up_white_24px.svg" style = "color:red"></md-icon> -->
+        <md-icon>
+          <ng-md-icon icon = "thumb_up" style = "fill:red"></ng-md-icon>
+        </md-icon>
+      </md-button>
+      <md-button class = "md-icon-button" aria-label = "Comment">
+        <md-icon md-svg-icon = "img/icons/comment_white_24px.svg" style = "color:red"></md-icon>
+      </md-button>
+    </md-card-icon-actions>
+  </md-card-actions>
+  <md-input-container md-no-float class = "md-block" placeholder = "Comment">
+    <input type = "text">
+  </md-input-container>
+  <md-list>
+    <md-list-item class="md-3-line md-long-text">
+      <img ng-src="/img/harsh.gif" class="md-avatar" alt="Test user" />
+      <div class="md-list-item-text">
+        <h3>Test user</h3>
+        <p>
+          fetched comment
+          fd df 
+          df df dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
+          sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
+        </p>
+      </div>
+    </md-list-item>
+  </md-list>
+  <md-divider ></md-divider>
+</md-card>
