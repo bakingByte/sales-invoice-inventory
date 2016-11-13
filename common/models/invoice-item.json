@@ -11,6 +11,10 @@
       "required": true,
       "index": true
     },
+    "productId": {
+      "type": "number",
+      "required": true
+    },
     "productName": {
       "type": "string",
       "required": true
