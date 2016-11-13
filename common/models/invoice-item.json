@@ -1,18 +1,30 @@
 {
-  "name": "Invoice",
+  "name": "InvoiceItem",
   "base": "PersistedModel",
   "idInjection": true,
   "options": {
     "validateUpsert": true
   },
   "properties": {
+    "invoiceId": {
+      "type": "number",
+      "required": true,
+      "index": true
+    },
+    "productName": {
+      "type": "string",
+      "required": true
+    },
+    "unitPrice": {
+      "type": "number",
+      "required": true
+    },
     "quantity": {
       "type": "number",
       "required": true
     },
     "totalPrice": {
-      "type": "number",
-      "required": true
+      "type": "number"
     },
     "date": {
       "type": "date",
@@ -21,9 +33,9 @@
   },
   "validations": [],
   "relations": {
-    "hasItems": {
-      "type": "hasMany",
-      "model": "InvoiceItem",
+    "belongsToInvoice": {
+      "type": "belongsTo",
+      "model": "Invoice",
       "foreignKey": "invoiceId"
     }
   },

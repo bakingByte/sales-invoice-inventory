@@ -20,5 +20,13 @@
   "Invoice": {
     "dataSource": "bakeryDatabase",
     "public": true
+  },
+  "InvoiceItem": {
+    "dataSource": "bakeryDatabase",
+    "public": true
+  },
+  "Person": {
+    "dataSource": "bakeryDatabase",
+    "public": true
   }
 }
