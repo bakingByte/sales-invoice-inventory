@@ -15,4 +15,3 @@ app.config(function($routeProvider) {
 		controller: "salesController"
     });
 });
-
