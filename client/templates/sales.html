@@ -41,44 +41,98 @@
         <div class="input-container"><input type="text" ng-model="invoice.company_info.phone" readonly/></div>
       </div>
     </div>
+
     <div class="items-table">
       <div class="row header">
         <div class="col-xs-1">&nbsp;</div>
-        <div class="col-xs-5">Description</div>
+        <div class="col-xs-1">Id</div>
+        <div class="col-xs-4">Name</div>
         <div class="col-xs-2">Quantity</div>
         <div class="col-xs-2">Cost {{currencySymbol}}</div>
         <div class="col-xs-2 text-right">Total</div>
       </div>
-      <div class="row invoice-item" ng-repeat="item in invoice.items" ng-animate="'slide-down'">
+      <div class="row invoice-item"  ng-hide="printMode" ng-animate="'slide-down'" style="background: grey;">
+        <div class="col-xs-1 remove-item-container">
+          <a href ng-hide="printMode" ng-click="addItem(itemToBeEntered)" class="btn btn-primary">[+]</a>
+        </div>
+        <div class="col-xs-1 input-container">
+          <angucomplete-alt id="idAutocomplete"
+              placeholder="Id"
+              pause="100"
+              selected-object="selectedId"
+              local-data="itemsArray"
+              search-fields="id"
+              title-field="id"
+              minlength="1"
+              input-class="input" my-enter="enterKeyPressed(itemToBeEntered)"/>
+        </div>
+        <div class="col-xs-4 input-container">
+          <!--<input ng-model="itemToBeEntered.name" placeholder="Name" />-->
+          <angucomplete-alt id="nameAutocomplete"
+              placeholder="Name"
+              pause="100"
+              selected-object="selectedName"
+              local-data="itemsArray"
+              search-fields="name"
+              title-field="name"
+              minlength="1"
+              input-class="input" my-enter="enterKeyPressed(itemToBeEntered)"/>
+        </div>
+        <div class="col-xs-2 input-container">
+          <input ng-model="itemToBeEntered.qty" value="1" placeholder="Quantity" size="4" my-enter="enterKeyPressed(itemToBeEntered)"/>
+        </div>
+        <div class="col-xs-2 input-container">
+          <input ng-model="itemToBeEntered.cost" placeholder="Cost" size="6" my-enter="enterKeyPressed(itemToBeEntered)"/>
+        </div>
+        <!--<div class="col-xs-2 input-container">
+          <input ng-model="itemToBeEntered.qty" value="1" size="4" ng-required ng-validate="integer" placeholder="Quantity" />
+        </div>
+        <div class="col-xs-2 input-container">
+          <input ng-model="itemToBeEntered.cost" value="0.00" ng-required ng-validate="number" size="6" placeholder="Cost" />
+        </div>-->
+        <div class="col-xs-2 text-right input-container">
+          {{itemToBeEntered.cost * itemToBeEntered.qty | currency: currencySymbol}}
+        </div>
+      </div>
+      <div class="row invoice-item" ng-repeat="item in invoice.items track by $index" ng-animate="'slide-down'">
         <div class="col-xs-1 remove-item-container">
           <a href ng-hide="printMode" ng-click="removeItem(item)" class="btn btn-danger">[X]</a>
         </div>
-        <div class="col-xs-5 input-container">
-          <input ng-model="item.description" placeholder="Description" />
+        <div class="col-xs-1 input-container">
+          <input ng-model="item.id" placeholder="Id" style="width: 90%" disabled/>
+        </div>
+        <div class="col-xs-4 input-container">
+          <input ng-model="item.name" placeholder="Name" disabled/>
         </div>
         <div class="col-xs-2 input-container">
+          <input ng-model="item.qty" placeholder="Quantity" size="4"/>
+        </div>
+        <div class="col-xs-2 input-container">
+          <input ng-model="item.cost" placeholder="Cost" size="6"/>
+        </div>
+        <!--<div class="col-xs-2 input-container">
           <input ng-model="item.qty" value="1" size="4" ng-required ng-validate="integer" placeholder="Quantity" />
         </div>
         <div class="col-xs-2 input-container">
           <input ng-model="item.cost" value="0.00" ng-required ng-validate="number" size="6" placeholder="Cost" />
-        </div>
+        </div>-->
         <div class="col-xs-2 text-right input-container">
           {{item.cost * item.qty | currency: currencySymbol}}
         </div>
       </div>
-      <div class="row invoice-item">
+      <!--<div class="row invoice-item">
         <div class="col-xs-12 add-item-container" ng-hide="printMode">
           <a class="btn btn-primary" href ng-click="addItem()" >[+]</a>
         </div>
-      </div>
+      </div>-->
       <div class="row">
         <div class="col-xs-10 text-right">Sub Total</div>
         <div class="col-xs-2 text-right">{{invoiceSubTotal() | currency: currencySymbol}}</div>
       </div>
-      <div class="row">
+      <!--<div class="row">
         <div class="col-xs-10 text-right">Tax(%): <input ng-model="invoice.tax" ng-validate="number" style="width:43px"></div>
         <div class="col-xs-2 text-right">{{calculateTax() | currency: currencySymbol}}</div>
-      </div>
+      </div>-->
       <div class="row">
         <div class="col-xs-10 text-right">Grand Total:</div>
         <div class="col-xs-2 text-right">{{calculateGrandTotal() | currency: currencySymbol}}</div>

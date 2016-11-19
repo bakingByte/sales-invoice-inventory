@@ -5,8 +5,37 @@ app.controller('salesController', function ($scope, $http, LocalStorage, DEFAULT
   $scope.logoRemoved = false;
   $scope.printMode   = false;
 
+  $scope.itemsArray = [
+    {id: 1, name: "Harsh", cost: "20"},
+    {id: 2, name: "Sapra", cost: "30"},
+    {id: 3, name: "Prabhdeep", cost: "40"},
+    {id: 4, name: "Singh", cost: "50"}
+  ];
 
+  $scope.itemToBeEntered = {
+    qty: 1
+  };
+  $scope.selectedId = function(item) {
+    console.log(item);
+    if( item ) {
+      $scope.itemToBeEntered.id = item.originalObject.id;
+      $scope.itemToBeEntered.cost = item.originalObject.cost;
+      $scope.itemToBeEntered.name = item.originalObject.name;
+    }
+  };
+  $scope.selectedName = function(item) {
+    console.log(item);
+    if( item ) {
+      $scope.itemToBeEntered.id = item.originalObject.id;
+      $scope.itemToBeEntered.cost = item.originalObject.cost;
+      $scope.itemToBeEntered.name = item.originalObject.name;
+    }
+  };
 
+  $scope.enterKeyPressed = function(item) {
+    console.log("Enter key pressed");
+    $scope.addItem(item);
+  };
 
   (function init() {
     // Attempt to load invoice from local storage
@@ -25,8 +54,21 @@ app.controller('salesController', function ($scope, $http, LocalStorage, DEFAULT
 
   })()
   // Adds an item to the invoice's items
-  $scope.addItem = function() {
-    $scope.invoice.items.push({ qty:1, cost:0, description:"" });
+  $scope.addItem = function(item) {
+    var itemToBeAdded = new Object({
+      id: item.id,
+      name: item.name,
+      qty: item.qty,
+      cost: item.cost
+    });
+    if(!itemToBeAdded.name || itemToBeAdded.name.length <= 0) {
+      itemToBeAdded.name = $("#nameAutocomplete_value").val();
+    }
+    $scope.invoice.items.push(itemToBeAdded);
+    $scope.$broadcast('angucomplete-alt:clearInput');
+    $scope.itemToBeEntered = {
+      qty: 1
+    }
   }
 
   // Toggle's the logo
@@ -121,5 +163,9 @@ app.controller('salesController', function ($scope, $http, LocalStorage, DEFAULT
     document.getElementById('imgInp').onchange = function() {
       readUrl(this);
     };
+  });
+
+  angular.element(document).ready(function() {
+    $("#idAutocomplete_value").css('width', '90%');
   });
 });
