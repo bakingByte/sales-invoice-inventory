@@ -1,4 +1,4 @@
-var app = angular.module('Sales', ['ngRoute', 'jqwidgets']);
+var app = angular.module('Sales', ['ngRoute', 'jqwidgets', 'angucomplete-alt']);
 
 app.config(function($routeProvider) {
     $routeProvider

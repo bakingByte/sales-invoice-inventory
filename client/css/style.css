@@ -96,7 +96,9 @@ input, textarea{
     border: 1px solid #F9F9F9;
 }
 
-
+.small input {
+  width: 90%;
+}
 
 @media print {
     .noPrint {
