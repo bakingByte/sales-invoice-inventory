@@ -9,8 +9,7 @@ var isDefined = angular.isDefined,
     isArray = angular.isArray,
     forEach = angular.forEach,
     extend = angular.extend,
-    copy = angular.copy,
-    toJson = angular.toJson;
+    copy = angular.copy;
 
 function inherit(parent, extra) {
   return extend(new (extend(function() {}, { prototype: parent }))(), extra);
@@ -56,7 +55,7 @@ function objectKeys(object) {
   }
   var result = [];
 
-  forEach(object, function(val, key) {
+  angular.forEach(object, function(val, key) {
     result.push(key);
   });
   return result;
@@ -97,7 +96,7 @@ function inheritParams(currentParams, newParams, $current, $to) {
   var parents = ancestors($current, $to), parentParams, inherited = {}, inheritList = [];
 
   for (var i in parents) {
-    if (!parents[i] || !parents[i].params) continue;
+    if (!parents[i].params) continue;
     parentParams = objectKeys(parents[i].params);
     if (!parentParams.length) continue;
 
@@ -207,11 +206,6 @@ function map(collection, callback) {
     result[i] = callback(val, i);
   });
   return result;
-}
-
-// issue #2676 #2889
-function silenceUncaughtInPromise (promise) {
-  return promise.then(undefined, function() {}) && promise;
 }
 
 /**
