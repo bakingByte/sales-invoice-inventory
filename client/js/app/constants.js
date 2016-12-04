@@ -32,11 +32,11 @@ app.constant('DEFAULT_INVOICE', {
     postal: '90210'
   },
   company: {
-    name: 'Abhishek Bakery',
+    name: 'Maharashtra Hindu Bakery',
     web_link: 'www.metawarelabs.com',
-    address1: 'Mira-Bhayander',
-    address2: 'Mumbai, Maharashtra ',
-    postal: '400082',
+    address1: 'Station Road, Opposite Arlin Tower,',
+    address2: 'Bhayander West, Thane,',
+    postal: '401101',
     phone: '+91-9854632650'
   },
   items: [

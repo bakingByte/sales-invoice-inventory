@@ -62,14 +62,14 @@
                 />
               </div>
               <div class="col-xs-2 input-container">
-                <input ng-model="itemToBeEntered.cost" placeholder="Cost" size="6" my-enter="enterKeyPressed(itemToBeEntered)" />
+                <input ng-model="itemToBeEntered.price" placeholder="price" size="6" my-enter="enterKeyPressed(itemToBeEntered)" />
               </div>
               <div class="col-xs-2 text-right input-container">
-                {{itemToBeEntered.cost * itemToBeEntered.qty | currency: invoice.currencySymbol}}
+                {{itemToBeEntered.price * itemToBeEntered.qty | currency: invoice.currencySymbol}}
               </div>
             </div>
             <div class="row invoice-item" ng-repeat="item in invoice.items track by $index" ng-animate="'slide-down'">
-              <div class="col-xs-1 remove-item-container">
+              <div class="col-xs-1 remove-item-container noPrint">
                 <a href ng-hide="printMode" ng-click="removeItem(item)" class="btn btn-danger">[X]</a>
               </div>
               <div class="col-xs-1 input-container">
@@ -82,10 +82,10 @@
                 <input ng-model="item.qty" placeholder="Quantity" size="4" />
               </div>
               <div class="col-xs-2 input-container">
-                <input ng-model="item.cost" placeholder="Cost" size="6" />
+                <input ng-model="item.price" placeholder="price" size="6" />
               </div>
               <div class="col-xs-2 text-right input-container">
-                {{item.cost * item.qty | currency: invoice.currencySymbol}}
+                {{item.price * item.qty | currency: invoice.currencySymbol}}
               </div>
             </div>
             <div class="row">
@@ -103,9 +103,9 @@
         <!-- /.box-body -->
         <div class="box-footer noPrint">
           <button class="btn btn-primary" ng-click="onNewInvoice()" style="margin-right: 10px">New Invoice</button>
-          <button class="btn btn-primary" ng-click="saveAndPrintInvoice()" style="margin-right: 10px;">Save and Print</button>
-          <button class="btn btn-primary" ng-click="saveInvoice()" style="margin-right: 10px;">Save</button>
-          <button class="btn btn-primary pull-right" ng-click="clearLocalStorage()">Reset</button>
+          <button class="btn btn-primary" ng-hide="printMode" ng-click="onSaveAndPrintInvoice()" style="margin-right: 10px;">Save and Print</button>
+          <button class="btn btn-primary" ng-hide="printMode" ng-click="onSaveInvoice()" style="margin-right: 10px;">Save</button>
+          <button class="btn btn-primary pull-right" ng-hide="printMode" ng-click="onResetInvoice()">Reset</button>
         </div>
         <!-- /.box-footer -->
       </div>
