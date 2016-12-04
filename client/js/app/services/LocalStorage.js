@@ -1,11 +1,12 @@
 // Service for accessing local storage
-app.service('LocalStorage', [function() {
+app.service('LocalStorage', ['localStorageService', function(localStorageService) {
 
   var Service = {};
 
   // Returns true if there is a logo stored
   var hasLogo = function() {
-    return !!localStorage['logo'];
+    return !!localStorageService.get('logo');
+    // return !!localStorage['logo'];
   };
 
   // Returns a stored logo (false if none is stored)
@@ -18,40 +19,46 @@ app.service('LocalStorage', [function() {
   };
 
   Service.setLogo = function(logo) {
-    localStorage['logo'] = logo;
+    localStorageService.set('logo', logo);
+    // localStorage['logo'] = logo;
   };
 
   // Checks to see if an invoice is stored
   var hasInvoice = function() {
-    return !(localStorage['invoice'] == '' || localStorage['invoice'] == null);
+    return !(localStorageService.get('invoice') == '' || localStorageService.get('invoice') == null);
+    // return !(localStorage['invoice'] == '' || localStorage['invoice'] == null);
   };
 
   // Returns a stored invoice (false if none is stored)
   Service.getInvoice = function() {
     if (hasInvoice()) {
-      return JSON.parse(localStorage['invoice']);
+      return JSON.parse(localStorageService.get('invoice'));
+      // return JSON.parse(localStorage['invoice']);
     } else {
       return false;
     }
   };
 
   Service.setInvoice = function(invoice) {
-    localStorage['invoice'] = JSON.stringify(invoice);
+    localStorageService.set('invoice',JSON.stringify(invoice));    
+    // localStorage['invoice'] = JSON.stringify(invoice);
   };
 
   // Clears a stored logo
   Service.clearLogo = function() {
-    localStorage['logo'] = '';
+    localStorageService.set('logo', '');
+    // localStorage['logo'] = '';
   };
 
   // Clears a stored invoice
   Service.clearinvoice = function() {
-    localStorage['invoice'] = '';
+    localStorageService.set('invoice', '');
+    // localStorage['invoice'] = '';
   };
 
   // Clears all local storage
   Service.clear = function() {
-    localStorage['invoice'] = '';
+    Service.clearinvoice();
     Service.clearLogo();
   };
 
