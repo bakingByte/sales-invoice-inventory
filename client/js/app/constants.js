@@ -43,3 +43,5 @@ app.constant('DEFAULT_INVOICE', {
     // { qty: 10, description: 'Gadget', cost: 9.95 }
   ]
 });
+
+$.notify.defaults({autoHide: false});
