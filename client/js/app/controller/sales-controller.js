@@ -1,15 +1,41 @@
 app.controller('salesController', function ($scope, $timeout, $http, LocalStorage, DEFAULT_INVOICE, DEFAULT_LOGO) {
   $scope.title = "Sales";
 
+  var validateInvoiceItems = function (invoiceItems) {
+   
+
+    for(var i = 0; i<invoiceItems.length; i++) {
+      var invoiceItem = invoiceItems[i];
+
+      if (isNaN(invoiceItem.quantity)) {
+        return "" + invoiceItem.productName + " should have a numeric quantity!";
+      } else if (invoiceItem.quantity < 1) {
+        return "" + invoiceItem.productName + " should have more than 0 quantity!";
+      }
+
+      if (isNaN(invoiceItem.unitPrice)) {
+        return "" + invoiceItem.productName + " should have a numeric price!";
+      } else if (invoiceItem.unitPrice < 0) {
+        return "" + invoiceItem.productName + " price should be 0 or more!";
+      }
+
+    }
+
+    if(!invoiceItems.length) {
+      return "invoice should have some items!";
+    }
+  };
+
   $scope.getProductsFromServer = function () {
     $http.get("http://localhost:3000/api/Products")
       .then(
-        function(response) {
+        function (response) {
           $scope.products = response.data;
         },
-        function(error) {
-          
-      });
+        function (error) {
+          $.notify("Ohh snap!! Something went wrong while fetching latest Products!", "error");
+          console.log(error);
+        });
   }
 
   $scope.getNextInvoiceNumber = function () {
@@ -19,7 +45,7 @@ app.controller('salesController', function ($scope, $timeout, $http, LocalStorag
           $scope.invoice.id = response.data.count + 1;
         },
         function (error) {
-          console.error('Error setting invoice number:');
+          $.notify("Ohh snap!! Something went wrong while fetching new invoice id!", "error");
           console.log(error);
         }
       );
@@ -37,8 +63,8 @@ app.controller('salesController', function ($scope, $timeout, $http, LocalStorag
   }
 
   $scope.$on("$destroy", function () {
-    if($scope.invoice.items.length) {
-      LocalStorage.setInvoice($scope.invoice);      
+    if ($scope.invoice.items.length) {
+      LocalStorage.setInvoice($scope.invoice);
     } else {
       LocalStorage.clear();
     }
@@ -65,48 +91,39 @@ app.controller('salesController', function ($scope, $timeout, $http, LocalStorag
   }
 
   $scope.onSaveInvoice = function () {
-     
+
     // Turn printmode on // disable save, save & print, reset
     // Prompt user
     // Save to localstorage
     // make http call
     var confirmSave = confirm('Are you sure you would like to save the invoice?');
     if (confirmSave) {
-      $scope.printMode = true;
+      //$scope.printMode = true;
       LocalStorage.setInvoice($scope.invoice);
-      $scope.saveInvoiceToServer($scope.invoice);
+      $scope.saveInvoiceToServer($scope.invoice, false);
     }
   }
 
   $scope.onSaveAndPrintInvoice = function () {
     var confirmSave = confirm('Are you sure you would like to save the invoice?');
     if (confirmSave) {
-      $scope.printMode = true;
+      //$scope.printMode = true;
       $timeout(window.print(), 100);
       LocalStorage.setInvoice($scope.invoice);
-      $scope.saveInvoiceToServer($scope.invoice);
+      $scope.saveInvoiceToServer($scope.invoice. true);
     }
   }
 
-  $scope.saveInvoiceToServer = function(invoice) {
+  $scope.saveInvoiceToServer = function (invoice, isPrintEnabled) {
     var invoiceData = {
       quantity: invoice.quantity,
       totalPrice: invoice.totalPrice,
       date: invoice.date
     };
-    $http.post("http://localhost:3000/api/Invoices", invoiceData)
-      .then(
-        function(response) {
-          console.log("Success in saving invoice");
-        },
-        function(error) {
-          console.log("error in saving invoice");
-        }
-      );
 
     var itemsData = [];
 
-    for(var i = 0; i < invoice.items; i++) {
+    for (var i = 0; i < invoice.items.length; i++) {
       var itemData = {
         invoiceId: invoice.id,
         productId: invoice.items[i].id,
@@ -117,22 +134,44 @@ app.controller('salesController', function ($scope, $timeout, $http, LocalStorag
         date: invoice.date
       };
       itemsData.push(itemData);
-
-     
     }
 
-     $http.post("http://localhost:3000/api/InvoiceItems", itemsData)
-      .then(
-        function(response) {
-          console.log("Success in saving invoice");
-        },
-        function(error) {
-          console.log("error in saving invoice");
-        }
-      );
-    
-    console.log(invoice);
-  };
+    var errorMessageInvoiceItems = validateInvoiceItems(itemsData);
+    if (errorMessageInvoiceItems) {
+      $.notify(errorMessageInvoiceItems, "warn");
+    } else {
+      $http.post("http://localhost:3000/api/Invoices", invoiceData)
+        .then(
+          function (response) {
+            console.log("Invoice saved successfully!!");
+            saveInvoiceItemsToServer(itemsData, isPrintEnabled);
+          },
+          function (error) {
+            console.log("error in saving invoice");
+            $.notify("Ohh snap!! Something went wrong!", "error");
+          }
+        );
+    };
+
+    saveInvoiceItemsToServer = function (itemsData, isPrintEnabled) {
+      $http.post("http://localhost:3000/api/InvoiceItems", itemsData)
+        .then(
+          function (response) {
+            console.log("Success in saving invoice");
+            $.notify("Invoice saved successfully!", "success");
+            $scope.printMode = true;
+            if (isPrintEnabled) {
+              $('.notifyjs-wrapper').trigger('notify-hide');
+              $timeout(window.print(), 100);
+            }
+          },
+          function (error) {
+            console.log("error in saving invoice");
+             $.notify("Ohh snap!! Something went wrong!", "error");
+          }
+        );
+    }
+  }
 
   var localstorage = {}
 
@@ -243,7 +282,7 @@ app.controller('salesController', function ($scope, $timeout, $http, LocalStorag
   // Calculates the grand total of the invoice
   $scope.calculateGrandTotal = function () {
     //$scope.saveInvoice();
-    $scope.invoice.totalPrice =  $scope.calculateTax() + $scope.invoiceSubTotal();
+    $scope.invoice.totalPrice = $scope.calculateTax() + $scope.invoiceSubTotal();
     return $scope.invoice.totalPrice;
   };
 

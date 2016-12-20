@@ -1,6 +1,20 @@
 app.controller('inventoryController', function ($scope, $http) {
   $scope.title = "Inventory";
 
+  var validateProduct = function(product) {
+    if (!product.name) {
+      return "Product name cannot be empty!";
+    }
+
+    if (isNaN(product.price)) {
+      return "Product price should be a number!";
+    } else if (product.price < 0) {
+      return "Product price should be 0 or more!";
+    }
+   
+    return "";
+  };
+
   $scope.init = function () {
     var url = "http://localhost:3000/api/Products";
     var theme = 'bootstrap';
@@ -18,49 +32,60 @@ app.controller('inventoryController', function ($scope, $http) {
         type: 'int'
       }],
       addrow: function (rowid, rowdata, position, commit) {
-        console.log('addrow');
-        console.log(rowdata);
         rowdata.id = null;
-        $http.post("http://localhost:3000/api/Products", rowdata)
-             .then(
-                 function(response) {
-                     console.log(response);
-                     commit(true, response.data.id);
-                 },
-                 function (error) {
-                     console.log(error);
-                     commit(false);
-                 }
-             );
+
+        var errorMessage = validateProduct(rowdata);
+        if (errorMessage) {
+          $.notify(errorMessage, "warn");
+        } else {
+          $http.post("http://localhost:3000/api/Products", rowdata)
+          .then(
+            function (response) {
+              commit(true, response.data.id);
+              $.notify("Product added successfully!!", "success");
+            },
+            function (error) {
+              console.log(error);
+              $.notify("Ohh snap!! Something went wrong!", "error");
+              commit(false);
+            }
+          );
+        }
+        
       },
       updaterow: function (rowid, rowdata, commit) {
-        console.log('update row');
-        console.log(rowdata);
-        console.log(rowid);
-        $http.put("http://localhost:3000/api/Products/" + rowid, rowdata)
-             .then(
-                 function(response) {
-                     console.log(response);
-                     commit(true);
-                 },
-                 function (error) {
-                     console.log(error);
-                     commit(false);
-                 }
-             );
+        var errorMessage = validateProduct(rowdata);
+        if (errorMessage) {
+          $.notify(errorMessage, "warn");
+        } else {
+          $http.put("http://localhost:3000/api/Products/" + rowid, rowdata)
+          .then(
+            function (response) {
+              commit(true);
+              $.notify("Product updated successfully!!", "success");
+            },
+            function (error) {
+              console.log(error);
+              $.notify("Ohh snap!! Something went wrong!", "error");
+              commit(false);
+            }
+          );
+        }
+        
       },
       deleterow: function (rowid, commit) {
         $http.delete("http://localhost:3000/api/Products/" + rowid)
-             .then(
-                 function(response) {
-                     console.log(response);
-                     commit(true);
-                 },
-                 function (error) {
-                     console.log(error);
-                     commit(false);
-                 }
-             );
+          .then(
+            function (response) {
+              commit(true);
+              $.notify("Product deleted successfully!!", "success");
+            },
+            function (error) {
+              console.log(error);
+              $.notify("Ohh snap!! Something went wrong!", "error");
+              commit(false);
+            }
+          );
       },
       id: 'id',
       url: url
@@ -96,7 +121,8 @@ app.controller('inventoryController', function ($scope, $http) {
       enabletooltips: true,
       showeverpresentrow: true,
       everpresentrowposition: "top",
-      selectionmode: 'singlerow',
+      selectionmode: 'multiplecellsadvanced',
+      editable: true,
       columns: [{
         text: 'Id',
         datafield: 'id',
@@ -108,7 +134,7 @@ app.controller('inventoryController', function ($scope, $http) {
       }, {
         text: 'Price',
         datafield: 'price',
-        width: '40%'
+        width: '40%',
       }]
     });
 
@@ -176,9 +202,9 @@ app.controller('inventoryController', function ($scope, $http) {
     });
   };
 
-  angular.element(document).ready(function() {
+  angular.element(document).ready(function () {
     $scope.init();
   });
- 
+
 
 });
