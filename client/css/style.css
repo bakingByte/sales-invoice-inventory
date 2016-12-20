@@ -100,14 +100,14 @@ input, textarea{
   width: 90%;
 }
 
+.angucomplete-holder input {
+   width: 90%;
+}
+
 @media print {
     .noPrint {
         display:none;
     }
-}
-
-body{
-  padding:20px;
 }
 
 .infos input{
@@ -143,4 +143,8 @@ div.container{
   display: inline-block;
   position: relative;
   color: #ce0c15;
+}
+
+#invoice .row {
+  margin: 0px; 
 }

@@ -1,0 +1,94 @@
+<!-- Content Header (Page header) -->
+<section class="content-header">
+  <h1>
+    {{pageTitle}}
+  </h1>
+</section>
+
+<!-- Main content -->
+<section class="content">
+
+  <div class="row">
+    <div class="main-gallery js-flickity">
+      <img src="dist/course_carousel/angularjs.png" alt="orange tree" />
+      <img src="dist/course_carousel/nodejs.jpg" alt="submerged" />
+      <img src="dist/course_carousel/communication.jpg" alt="look-out" />
+      <img src="dist/course_carousel/agile.jpg" alt="submerged" />
+      <img src="dist/course_carousel/finance.jpg" alt="look-out" />
+    </div>
+  </div>
+
+  <br/>
+  <h2 class="page-header">New and Noteworthy</h2>
+
+  <div class="row row-horizon">
+    <div class="col-xs-12 col-md-4" ng-repeat="course in newAndNoteworthyCourses track by $index">
+      <!-- Widget: user widget style 1 -->
+      <a href="#/courses/{{course.id}}">
+      <div class="box box-widget widget-user">
+        <!-- Add the bg color to the header using any of the bg-* classes -->
+        <div class="widget-user-header" ng-class="course.background">
+          <h3 class="widget-user-username">{{course.title}}</h3>
+          <h5 class="widget-user-desc">{{course.author}}</h5>
+        </div>
+        <div class="widget-user-image">
+          <img class="img-circle" src="{{course.iconPath}}" alt="User Avatar">
+        </div>
+        <div class="box-footer">
+          <div class="row">
+            <div class="col-sm-6 border-right">
+              <div class="description-block">
+                <h5 class="description-header">{{course.releasedDate | date : mediumDate}}</h5>
+                <span class="description-text">Released Date</span>
+              </div><!-- /.description-block -->
+            </div><!-- /.col -->
+            <div class="col-sm-6 border-right">
+              <div class="description-block">
+                <h5 class="description-header">{{course.numberOfSubscriptions}}</h5>
+                <span class="description-text">Subscriptions</span>
+              </div><!-- /.description-block -->
+            </div><!-- /.col -->
+          </div><!-- /.row -->
+        </div>
+      </div><!-- /.widget-user -->
+    </a>
+    </div><!-- /.col -->
+  </div>
+
+  <h2 class="page-header">Recommendations</h2>
+
+  <div class="row row-horizon">
+    <div class="col-xs-12 col-md-4" ng-repeat="course in recommendedCourses track by $index">
+      <!-- Widget: user widget style 1 -->
+      <a href="#/courses/{{course.id}}">
+      <div class="box box-widget widget-user">
+        <!-- Add the bg color to the header using any of the bg-* classes -->
+        <div class="widget-user-header" ng-class="course.background">
+          <h3 class="widget-user-username">{{course.title}}</h3>
+          <h5 class="widget-user-desc">{{course.author}}</h5>
+        </div>
+        <div class="widget-user-image">
+          <img class="img-circle" src="{{course.iconPath}}" alt="User Avatar">
+        </div>
+        <div class="box-footer">
+          <div class="row">
+            <div class="col-sm-6 border-right">
+              <div class="description-block">
+                <h5 class="description-header">{{course.releasedDate | date : mediumDate}}</h5>
+                <span class="description-text">Released Date</span>
+              </div><!-- /.description-block -->
+            </div><!-- /.col -->
+            <div class="col-sm-6 border-right">
+              <div class="description-block">
+                <h5 class="description-header">{{course.numberOfSubscriptions}}</h5>
+                <span class="description-text">Subscriptions</span>
+              </div><!-- /.description-block -->
+            </div><!-- /.col -->
+          </div><!-- /.row -->
+        </div>
+      </div><!-- /.widget-user -->
+      </a>
+    </div><!-- /.col -->
+  </div>
+
+</section>

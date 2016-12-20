@@ -1,0 +1,59 @@
+<!-- Content Header (Page header) -->
+<section class="content-header">
+  <h1>
+    {{pageTitle}}
+  </h1>
+</section>
+
+<!-- Main content -->
+<section class="content">
+
+  <div class="row">
+    <div class="main-gallery js-flickity">
+      <img src="dist/blog_carousel/christmas.jpg" alt="orange tree" />
+      <img src="dist/blog_carousel/diwali.jpg" alt="submerged" />
+      <img src="dist/blog_carousel/fid.jpg" alt="look-out" />
+      <img src="dist/blog_carousel/happynewyear.jpg" alt="submerged" />
+      <img src="dist/blog_carousel/thanksGiving.png" alt="look-out" />
+    </div>
+  </div>
+
+  <h2 class="page-header">New and Noteworthy</h2>
+
+  <div class="row row-horizon">
+    <div class="col-md-4" ng-repeat="blog in blogs">
+      <!-- Widget: user widget style 1 -->
+      <a href="#/blogs/{{blog.id}}">
+      <div class="box box-widget widget-user">
+        <!-- Add the bg color to the header using any of the bg-* classes -->
+        <div class="widget-user-header" ng-class="blogBackgroundColors[blog.id]">
+          <h3 class="widget-user-username">{{blog.title}}</h3>
+          <h5 class="widget-user-desc">{{blog.author}}</h5>
+        </div>
+        <div class="widget-user-image">
+          <img class="img-circle" src="{{blog.iconPath}}" alt="User Avatar">
+        </div>
+        <div class="box-footer">
+          <div class="row">
+            <div class="col-sm-6 border-right">
+              <div class="description-block">
+                <!-- <h5 class="description-header">{{blog.overallRating}}</h5> -->
+                <div star-rating rating="blog.overallRating" read-only="true" max-rating="5"></div>
+                <span class="description-text">Ratings</span>
+              </div><!-- /.description-block -->
+            </div><!-- /.col -->
+            <div class="col-sm-6 border-right">
+              <div class="description-block">
+                <h5 class="description-header">{{blog.releasedDate | date : mediumDate}}</h5>
+                <span class="description-text">Released Date</span>
+              </div><!-- /.description-block -->
+            </div><!-- /.col -->
+          </div><!-- /.row -->
+        </div>
+      </div><!-- /.widget-user -->
+      </a>
+    </div><!-- /.col -->
+  </div>
+
+
+</section>
