@@ -1,4 +1,4 @@
-app.controller('salesHistoryController', function ($scope, $http) {
+app.controller('salesHistoryController',['$scope','$http', function ($scope, $http) {
   $scope.title = "Sales History";
 
   $scope.init = function () {
@@ -30,7 +30,7 @@ app.controller('salesHistoryController', function ($scope, $http) {
     $("#jqxgrid").jqxGrid({
       theme: 'bootstrap',
       width: '100%',
-      height: '100%',
+      height: '480px',
       source: dataAdapter,
       pageable: true,
       sortable: true,
@@ -70,4 +70,4 @@ app.controller('salesHistoryController', function ($scope, $http) {
   });
  
 
-});
+}]);
