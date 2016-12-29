@@ -1,5 +1,5 @@
 'use strict';
 
-module.exports = function(Invoice) {
+module.exports = function (Invoice) {
 
 };
