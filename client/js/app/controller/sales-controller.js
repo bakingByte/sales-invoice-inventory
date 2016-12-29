@@ -1,6 +1,19 @@
 app.controller('salesController',['$scope', '$timeout', '$http', 'LocalStorage', 'DEFAULT_INVOICE', 'DEFAULT_LOGO', function ($scope, $timeout, $http, LocalStorage, DEFAULT_INVOICE, DEFAULT_LOGO) {
   $scope.title = "Sales";
 
+  $scope.checkWhetherItemExistsInProducts = function(item) {
+    var flag = false;
+
+    for(var i = 0; i < $scope.products.length; i++) {
+      if($scope.products[i].id == item.id && $scope.products[i].name == item.name) {
+        flag = true;
+        break;
+      }
+    }
+
+    return flag;
+  }
+
   var validateInvoiceItems = function (invoiceItems) {
    
 
@@ -224,7 +237,12 @@ app.controller('salesController',['$scope', '$timeout', '$http', 'LocalStorage',
 
   $scope.enterKeyPressed = function (item) {
     console.log("Enter key pressed");
-    $scope.addItem(item);
+    if ($scope.checkWhetherItemExistsInProducts(item)) {
+       $scope.addItem(item);
+    }
+    else {
+      $.notify("This item doesnot exist in Inventory table. Please update your inventory first!", "warn");
+    }
   };
 
   (function init() {

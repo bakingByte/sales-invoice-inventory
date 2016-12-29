@@ -44,4 +44,7 @@ app.constant('DEFAULT_INVOICE', {
   ]
 });
 
-$.notify.defaults({autoHide: false});
+$.notify.defaults({
+  autoHide: true,
+   autoHideDelay: 3000
+});

@@ -30,19 +30,19 @@
     "public": false
   },
   "Product": {
-    "dataSource": "bakeryDatabase",
+    "dataSource": "db",
     "public": true
   },
   "Invoice": {
-    "dataSource": "bakeryDatabase",
+    "dataSource": "db",
     "public": true
   },
   "InvoiceItem": {
-    "dataSource": "bakeryDatabase",
+    "dataSource": "db",
     "public": true
   },
   "Person": {
-    "dataSource": "bakeryDatabase",
+    "dataSource": "db",
     "public": true
   }
 }
