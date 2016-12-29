@@ -1,5 +1,5 @@
 // The default logo for the invoice
-app.constant('DEFAULT_LOGO', 'dist/img/bakery-logo.png')
+app.constant('DEFAULT_LOGO', 'dist/img/bakery-logo.jpg')
 
 var getCurrentDate = function () {
   var monthNames = [

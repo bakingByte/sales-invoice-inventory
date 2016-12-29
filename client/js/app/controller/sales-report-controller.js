@@ -37,7 +37,7 @@ app.controller('salesReportController', ['$scope', '$http',
 
       $("#jqxgrid").jqxGrid({
         width: '100%',
-        height: '100%',
+        height: '480px',
         source: dataAdapter,
         showfilterrow: true,
         filterable: true,

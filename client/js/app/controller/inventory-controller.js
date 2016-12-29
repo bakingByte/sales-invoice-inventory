@@ -1,4 +1,4 @@
-app.controller('inventoryController', function ($scope, $http) {
+app.controller('inventoryController',['$scope','$http', function ($scope, $http) {
   $scope.title = "Inventory";
 
   var validateProduct = function(product) {
@@ -110,7 +110,7 @@ app.controller('inventoryController', function ($scope, $http) {
     $("#jqxgrid").jqxGrid({
       theme: 'bootstrap',
       width: '100%',
-      height: '100%',
+      height: '480px',
       source: dataAdapter,
       pageable: true,
       //autoheight: true,
@@ -207,4 +207,4 @@ app.controller('inventoryController', function ($scope, $http) {
   });
 
 
-});
+}]);
