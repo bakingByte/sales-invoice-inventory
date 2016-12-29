@@ -1,6 +1,16 @@
 {
-  "bakeryDatabase": {
-    "name": "bakeryDatabase",
+  "db": {
+    "name": "db",
     "connector": "memory"
+  },
+  "bakeryDatabase": {
+    "host": "localhost",
+    "port": 3306,
+    "url": "localhost:3306",
+    "database": "MHBDatabase",
+    "password": "test1234",
+    "name": "bakeryDatabase",
+    "connector": "mysql",
+    "user": "root"
   }
 }

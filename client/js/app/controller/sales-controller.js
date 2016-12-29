@@ -1,4 +1,4 @@
-app.controller('salesController', function ($scope, $timeout, $http, LocalStorage, DEFAULT_INVOICE, DEFAULT_LOGO) {
+app.controller('salesController',['$scope', '$timeout', '$http', 'LocalStorage', 'DEFAULT_INVOICE', 'DEFAULT_LOGO', function ($scope, $timeout, $http, LocalStorage, DEFAULT_INVOICE, DEFAULT_LOGO) {
   $scope.title = "Sales";
 
   var validateInvoiceItems = function (invoiceItems) {
@@ -305,4 +305,4 @@ app.controller('salesController', function ($scope, $timeout, $http, LocalStorag
   angular.element(document).ready(function () {
     $("#idAutocomplete_value").css('width', '90%');
   });
-});
+}]);
