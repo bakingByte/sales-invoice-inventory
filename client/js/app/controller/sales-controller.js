@@ -120,7 +120,7 @@ app.controller('salesController',['$scope', '$timeout', '$http', 'LocalStorage',
   $scope.onSaveAndPrintInvoice = function () {
     var confirmSave = confirm('Are you sure you would like to save the invoice?');
     if (confirmSave) {
-      //$scope.printMode = true;
+      //$scope.printMode = true;      
       LocalStorage.setInvoice($scope.invoice);
       $scope.saveInvoiceToServer($scope.invoice, true);
     }

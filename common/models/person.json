@@ -8,19 +8,6 @@
   "properties": {},
   "validations": [],
   "relations": {},
-  "acls": [
-    {
-      "accessType": "WRITE",
-      "principalType": "ROLE",
-      "principalId": "$owner",
-      "permission": "ALLOW"
-    },
-    {
-      "accessType": "READ",
-      "principalType": "ROLE",
-      "principalId": "$authenticated",
-      "permission": "ALLOW"
-    }
-  ],
+  "acls": [],
   "methods": {}
 }
