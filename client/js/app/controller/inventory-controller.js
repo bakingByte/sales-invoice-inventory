@@ -16,7 +16,7 @@ app.controller('inventoryController',['$scope','$http', function ($scope, $http)
   };
 
   $scope.init = function () {
-    var url = "http://localhost:3000/api/Products";
+    var url = "/api/Products";
     var theme = 'bootstrap';
 
     var source = {
@@ -38,7 +38,7 @@ app.controller('inventoryController',['$scope','$http', function ($scope, $http)
         if (errorMessage) {
           $.notify(errorMessage, "warn");
         } else {
-          $http.post("http://localhost:3000/api/Products", rowdata)
+          $http.post("/api/Products", rowdata)
           .then(
             function (response) {
               commit(true, response.data.id);
@@ -58,7 +58,7 @@ app.controller('inventoryController',['$scope','$http', function ($scope, $http)
         if (errorMessage) {
           $.notify(errorMessage, "warn");
         } else {
-          $http.put("http://localhost:3000/api/Products/" + rowid, rowdata)
+          $http.put("/api/Products/" + rowid, rowdata)
           .then(
             function (response) {
               commit(true);
@@ -74,7 +74,7 @@ app.controller('inventoryController',['$scope','$http', function ($scope, $http)
         
       },
       deleterow: function (rowid, commit) {
-        $http.delete("http://localhost:3000/api/Products/" + rowid)
+        $http.delete("/api/Products/" + rowid)
           .then(
             function (response) {
               commit(true);
