@@ -40,7 +40,7 @@ app.controller('salesController',['$scope', '$timeout', '$http', 'LocalStorage',
   };
 
   $scope.getProductsFromServer = function () {
-    $http.get("http://localhost:3000/api/Products")
+    $http.get("/api/Products")
       .then(
         function (response) {
           $scope.products = response.data;
@@ -52,7 +52,7 @@ app.controller('salesController',['$scope', '$timeout', '$http', 'LocalStorage',
   }
 
   $scope.getNextInvoiceNumber = function () {
-    $http.get("http://localhost:3000/api/Invoices/count")
+    $http.get("/api/Invoices/count")
       .then(
         function (response) {
           $scope.invoice.id = response.data.count + 1;
@@ -120,10 +120,9 @@ app.controller('salesController',['$scope', '$timeout', '$http', 'LocalStorage',
   $scope.onSaveAndPrintInvoice = function () {
     var confirmSave = confirm('Are you sure you would like to save the invoice?');
     if (confirmSave) {
-      //$scope.printMode = true;
-      $timeout(window.print(), 100);
+      //$scope.printMode = true;      
       LocalStorage.setInvoice($scope.invoice);
-      $scope.saveInvoiceToServer($scope.invoice. true);
+      $scope.saveInvoiceToServer($scope.invoice, true);
     }
   }
 
@@ -153,7 +152,7 @@ app.controller('salesController',['$scope', '$timeout', '$http', 'LocalStorage',
     if (errorMessageInvoiceItems) {
       $.notify(errorMessageInvoiceItems, "warn");
     } else {
-      $http.post("http://localhost:3000/api/Invoices", invoiceData)
+      $http.post("/api/Invoices", invoiceData)
         .then(
           function (response) {
             console.log("Invoice saved successfully!!");
@@ -167,7 +166,7 @@ app.controller('salesController',['$scope', '$timeout', '$http', 'LocalStorage',
     };
 
     saveInvoiceItemsToServer = function (itemsData, isPrintEnabled) {
-      $http.post("http://localhost:3000/api/InvoiceItems", itemsData)
+      $http.post("/api/InvoiceItems", itemsData)
         .then(
           function (response) {
             console.log("Success in saving invoice");
@@ -307,7 +306,7 @@ app.controller('salesController',['$scope', '$timeout', '$http', 'LocalStorage',
   // Sets the current invoice to the given one
   $scope.setInvoice = function (invoice) {
     $scope.invoice = invoice;
-    $http.get("http://localhost:3000/api/Invoices/count")
+    $http.get("/api/Invoices/count")
       .then(
         function (response) {
           $scope.invoice.invoice_number = response.data.count + 1;

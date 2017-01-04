@@ -4,7 +4,7 @@ app.controller('salesReportController', ['$scope', '$http',
 
     $scope.init = function () {
       //var data = generatedata(500);
-			var url = "http://localhost:3000/api/InvoiceItems";
+			var url = "/api/InvoiceItems";
       var source = {
         datatype: "json",
         datafields: [{

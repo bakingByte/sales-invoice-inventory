@@ -2,7 +2,7 @@ app.controller('salesHistoryController',['$scope','$http', function ($scope, $ht
   $scope.title = "Sales History";
 
   $scope.init = function () {
-    var url = "http://localhost:3000/api/Invoices";
+    var url = "/api/Invoices";
     var theme = 'bootstrap';
 
     var source = {
