@@ -1,6 +1,17 @@
 // The default logo for the invoice
 app.constant('DEFAULT_LOGO', 'dist/img/bakery-logo.jpg')
 
+var format_two_digits = function(n) {
+    return n < 10 ? '0' + n : n;
+};
+
+var time_format = function(d) {
+    hours = format_two_digits(d.getHours());
+    minutes = format_two_digits(d.getMinutes());
+    seconds = format_two_digits(d.getSeconds());
+    return hours + ":" + minutes + ":" + seconds;
+}
+
 var getCurrentDate = function () {
   var monthNames = [
     "January", "February", "March",
@@ -14,7 +25,7 @@ var getCurrentDate = function () {
   var monthIndex = date.getMonth();
   var year = date.getFullYear();
 
-  return (day + ' ' + monthNames[monthIndex] + ' ' + year);
+  return (day + ' ' + monthNames[monthIndex] + ' ' + year + '   ' + time_format(date));
 }
 
 // The invoice displayed when the user first uses the app

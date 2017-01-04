@@ -22,7 +22,7 @@ app.controller('salesController',['$scope', '$timeout', '$http', 'LocalStorage',
 
       if (isNaN(invoiceItem.quantity)) {
         return "" + invoiceItem.productName + " should have a numeric quantity!";
-      } else if (invoiceItem.quantity < 1) {
+      } else if (invoiceItem.quantity < 0) {
         return "" + invoiceItem.productName + " should have more than 0 quantity!";
       }
 
@@ -185,28 +185,12 @@ app.controller('salesController',['$scope', '$timeout', '$http', 'LocalStorage',
     }
   }
 
-  var localstorage = {}
-
-  $scope.saveInvoice = {
-    quantity: 0,
-    totalPrice: 0,
-    date: '2016-11-27',
-    items: [{
-      "invoiceId": 0,
-      "productId": 0,
-      "productName": "string",
-      "unitPrice": 0,
-      "quantity": 0,
-      "totalPrice": 0,
-      "date": "2016-11-27",
-      "id": 0
-    }]
-  }
+  var localstorage = {};
 
   $scope.calculateTotalNumberOfItems = function () {
     var total = 0;
     angular.forEach($scope.invoice.items, function (item, key) {
-      total += parseInt(item.qty);
+      total += parseFloat(item.qty);
     });
     $scope.invoice.quantity = total;
     return total;

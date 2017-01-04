@@ -19,6 +19,10 @@ app.config(['$routeProvider', function($routeProvider) {
         templateUrl : "../../templates/sales.html",
 		controller: "salesController"
     })
+    .when("/sales/:id", {
+        templateUrl : "../../templates/sales-view.html",
+		controller: "salesViewController"
+    })
     .when("/salesHistory", {
         templateUrl : "../../templates/salesHistory.html",
 		controller: "salesHistoryController"
