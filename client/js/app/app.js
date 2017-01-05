@@ -1,4 +1,4 @@
-var app = angular.module('Sales', ['ngRoute', 'jqwidgets', 'angucomplete-alt', 'LocalStorageModule']);
+var app = angular.module('Sales', ['ngRoute', 'jqwidgets', 'angucomplete-alt', 'LocalStorageModule', 'lbServices']);
 
 app.config(['$routeProvider', function($routeProvider) {
 

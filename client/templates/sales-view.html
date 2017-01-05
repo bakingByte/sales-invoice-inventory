@@ -1,7 +1,8 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
   <h1>
-    {{title}}
+    {{title}} - {{invoiceItems | json}}
+    <br> {{invoice | json}}
   </h1>
 </section>
 <section class="content">
@@ -28,11 +29,11 @@
           </div>
           <div class="row infos">
             <div class="col-xs-6">
-              <div class="input-container"><input type="text" ng-model="invoice.company.name" readonly/></div>
-              <div class="input-container"><input type="text" ng-model="invoice.company.address1" readonly/></div>
-              <div class="input-container"><input type="text" ng-model="invoice.company.address2" readonly/></div>
-              <div class="input-container"><input type="text" ng-model="invoice.company.postal" readonly/></div>
-              <div class="input-container"><input type="text" ng-model="invoice.company.phone" readonly/></div>
+              <div class="input-container"><input type="text" ng-model="defaults.company.name" readonly/></div>
+              <div class="input-container"><input type="text" ng-model="defaults.company.address1" readonly/></div>
+              <div class="input-container"><input type="text" ng-model="defaults.company.address2" readonly/></div>
+              <div class="input-container"><input type="text" ng-model="defaults.company.postal" readonly/></div>
+              <div class="input-container"><input type="text" ng-model="defaults.company.phone" readonly/></div>
             </div>
           </div>
           <div class="items-table">
@@ -41,42 +42,42 @@
               <div class="col-xs-1">Id</div>
               <div class="col-xs-4">Name</div>
               <div class="col-xs-2">Quantity</div>
-              <div class="col-xs-2">Cost {{invoice.currencySymbol}}</div>
+              <div class="col-xs-2">Cost {{defaults.currencySymbol}}</div>
               <div class="col-xs-2 text-right">Total</div>
             </div>
-            <div class="row invoice-item" ng-repeat="item in invoice.items track by $index" ng-animate="'slide-down'">
-              <div class="col-xs-1 input-container">
-                <input ng-model="item.id" placeholder="Id" style="width: 90%" disabled/>
+            <div class="row invoice-item" ng-repeat="item in invoiceItems track by $index" ng-animate="'slide-down'">
+              <div class="col-xs-offset-1 col-xs-1 input-container">
+                <input ng-model="item.productId" placeholder="Id" style="width: 90%" disabled/>
               </div>
               <div class="col-xs-4 input-container">
-                <input ng-model="item.name" placeholder="Name" disabled/>
+                <input ng-model="item.productName" placeholder="Name" disabled/>
               </div>
               <div class="col-xs-2 input-container">
-                <input ng-model="item.qty" placeholder="Quantity" size="4" />
+                <input ng-model="item.quantity" placeholder="Quantity" size="4" />
               </div>
               <div class="col-xs-2 input-container">
-                <input ng-model="item.price" placeholder="price" size="6" />
+                <input ng-model="item.unitPrice" placeholder="price" size="6" />
               </div>
               <div class="col-xs-2 text-right input-container">
-                {{item.price * item.qty | currency: invoice.currencySymbol}}
+                {{item.totalPrice | currency: defaults.currencySymbol}}
               </div>
             </div>
             <div class="row">
               <div class="col-xs-10 text-right">Sub Total</div>
-              <div class="col-xs-2 text-right">{{invoiceSubTotal() | currency: invoice.currencySymbol}}</div>
+              <div class="col-xs-2 text-right">{{invoice.totalPrice | currency: defaults.currencySymbol}}</div>
             </div>
             <div class="row">
               <div class="col-xs-6 text-right">Total items:</div>
-              <div class="col-xs-2">{{calculateTotalNumberOfItems()}}</div>
+              <div class="col-xs-2">{{invoice.quantity}}</div>
               <div class="col-xs-2 text-right">Grand Total:</div>
-              <div class="col-xs-2 text-right">{{calculateGrandTotal() | currency: invoice.currencySymbol}}</div>
+              <div class="col-xs-2 text-right">{{invoice.totalPrice | currency: defaults.currencySymbol}}</div>
             </div>
           </div>
         </div>
         <!-- /.box-body -->
         <div class="box-footer noPrint">
           <button class="btn btn-primary" ng-hide="printMode" ng-click="onPrintInvoice()" style="margin-right: 10px;">Print</button>
-          <button class="btn btn-primary pull-right" ng-hide="printMode" ng-click="onResetInvoice()">Reset</button>
+          <button class="btn btn-danger pull-right" ng-hide="printMode" ng-click="onDeleteInvoice()" ng-disabled="disableDeleteButton">Delete</button>
         </div>
         <!-- /.box-footer -->
       </div>
