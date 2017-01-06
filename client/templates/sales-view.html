@@ -1,0 +1,85 @@
+<!-- Content Header (Page header) -->
+<section class="content-header">
+  <h1>
+    {{title}}
+  </h1>
+</section>
+<section class="content">
+  <div class="row">
+    <div class="col-xs-12 col-md-offset-2 col-md-8">
+      <div class="box box-success" id="invoice">
+        <div class="box-header with-border text-center">
+          <h2 class="box-title">Invoice</h2>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+          <div class="row branding">
+            <div class="col-xs-6">
+              <div class="invoice-number-container">
+                <label for="invoice-number">Invoice #</label><input type="text" id="id" ng-model="invoice.id" readonly/>
+                <br>
+                <label for="invoice-number">Date: </label><input type="text" id="date" ng-model="invoice.date"  style="width: 400px;"/>
+              </div>
+            </div>
+            <div class="col-xs-6 logo-container">
+              <input type="file" id="imgInp" />
+              <img ng-hide="logoRemoved" id="company_logo" ng-src="{{ logo }}" alt="your image" width="300" />
+            </div>
+          </div>
+          <div class="row infos">
+            <div class="col-xs-6">
+              <div class="input-container"><input type="text" ng-model="defaults.company.name" readonly/></div>
+              <div class="input-container"><input type="text" ng-model="defaults.company.address1" readonly/></div>
+              <div class="input-container"><input type="text" ng-model="defaults.company.address2" readonly/></div>
+              <div class="input-container"><input type="text" ng-model="defaults.company.postal" readonly/></div>
+              <div class="input-container"><input type="text" ng-model="defaults.company.phone" readonly/></div>
+            </div>
+          </div>
+          <div class="items-table">
+            <div class="row header">
+              <div class="col-xs-1">&nbsp;</div>
+              <div class="col-xs-1">Id</div>
+              <div class="col-xs-4">Name</div>
+              <div class="col-xs-2">Quantity</div>
+              <div class="col-xs-2">Cost {{defaults.currencySymbol}}</div>
+              <div class="col-xs-2 text-right">Total</div>
+            </div>
+            <div class="row invoice-item" ng-repeat="item in invoiceItems track by $index" ng-animate="'slide-down'">
+              <div class="col-xs-offset-1 col-xs-1 input-container">
+                <input ng-model="item.productId" placeholder="Id" style="width: 90%" disabled/>
+              </div>
+              <div class="col-xs-4 input-container">
+                <input ng-model="item.productName" placeholder="Name" disabled/>
+              </div>
+              <div class="col-xs-2 input-container">
+                <input ng-model="item.quantity" placeholder="Quantity" size="4" />
+              </div>
+              <div class="col-xs-2 input-container">
+                <input ng-model="item.unitPrice" placeholder="price" size="6" />
+              </div>
+              <div class="col-xs-2 text-right input-container">
+                {{item.totalPrice | currency: defaults.currencySymbol}}
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-10 text-right">Sub Total</div>
+              <div class="col-xs-2 text-right">{{invoice.totalPrice | currency: defaults.currencySymbol}}</div>
+            </div>
+            <div class="row">
+              <div class="col-xs-6 text-right">Total items:</div>
+              <div class="col-xs-2">{{invoice.quantity}}</div>
+              <div class="col-xs-2 text-right">Grand Total:</div>
+              <div class="col-xs-2 text-right">{{invoice.totalPrice | currency: defaults.currencySymbol}}</div>
+            </div>
+          </div>
+        </div>
+        <!-- /.box-body -->
+        <div class="box-footer noPrint">
+          <button class="btn btn-primary" ng-hide="printMode" ng-click="onPrintInvoice()" style="margin-right: 10px;">Print</button>
+          <button class="btn btn-danger pull-right" ng-hide="printMode" ng-click="onDeleteInvoice()" ng-disabled="disableDeleteButton">Delete</button>
+        </div>
+        <!-- /.box-footer -->
+      </div>
+    </div>
+  </div>
+</section>

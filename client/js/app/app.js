@@ -1,4 +1,4 @@
-var app = angular.module('Sales', ['ngRoute', 'jqwidgets', 'angucomplete-alt', 'LocalStorageModule']);
+var app = angular.module('Sales', ['ngRoute', 'jqwidgets', 'angucomplete-alt', 'LocalStorageModule', 'lbServices']);
 
 app.config(['$routeProvider', function($routeProvider) {
 
@@ -18,6 +18,10 @@ app.config(['$routeProvider', function($routeProvider) {
     .when("/sales", {
         templateUrl : "../../templates/sales.html",
 		controller: "salesController"
+    })
+    .when("/sales/:id", {
+        templateUrl : "../../templates/sales-view.html",
+		controller: "salesViewController"
     })
     .when("/salesHistory", {
         templateUrl : "../../templates/salesHistory.html",

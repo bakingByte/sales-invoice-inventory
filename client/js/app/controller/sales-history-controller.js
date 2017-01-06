@@ -1,4 +1,4 @@
-app.controller('salesHistoryController',['$scope','$http', function ($scope, $http) {
+app.controller('salesHistoryController',['$scope','$http','$location', function ($scope, $http, $location) {
   $scope.title = "Sales History";
 
   $scope.init = function () {
@@ -61,7 +61,9 @@ app.controller('salesHistoryController',['$scope','$http', function ($scope, $ht
     });
 
     $("#jqxgrid").on("rowdoubleclick", function (event) {
-
+      let rowData = $('#jqxgrid').jqxGrid('getrowdata', $('#jqxgrid').jqxGrid('getselectedrowindexes'));
+      $location.url('/sales/' + rowData.id);
+      $scope.$apply();
     });
   };
 
