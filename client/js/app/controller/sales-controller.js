@@ -156,6 +156,10 @@ app.controller('salesController',['$scope', '$timeout', '$http', 'LocalStorage',
         .then(
           function (response) {
             console.log("Invoice saved successfully!!");
+            $scope.invoice.id = response.data.id;
+            for(var i = 0; i < invoiceData.length; i++) {
+              invoiceData[i].invoiceId = $scope.invoice.id;
+            }
             saveInvoiceItemsToServer(itemsData, isPrintEnabled);
           },
           function (error) {
